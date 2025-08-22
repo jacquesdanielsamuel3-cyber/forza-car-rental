@@ -35,6 +35,12 @@ const carData = {
     description: "Reliable midsize car with good mileage.",
     pricePerDay: 2600
   },
+    "BMW 4 Series Convertible": {
+    brand: "BMW 4", seats: 4, fuel: "Petrol", transmission: "Automatic",
+    image: "Latest car/bmw 4 series convertible.png",
+    description: "Stylish convertible designed for luxury and sporty drives..",
+    pricePerDay: 4500
+  },
   "Rolls-Royce Phantom": {
     brand: "Rolls-Royce", seats: 4, fuel: "Petrol", transmission: "Automatic",
     image: "Luxury car/rolls-royce-phantom.png",
@@ -140,6 +146,7 @@ const brands = {
   "Toyota": ["Toyota GR Supra", "Toyota Vitz", "Toyota Corolla", "Toyota Sienta", "Toyota Probox"],
   "Hyundai": ["Hyundai Palisade", "Hyunda i10"],
   "Honda": ["Honda Accord"],
+  "BMW 4": [],
   "Rolls-Royce": ["Rolls-Royce Phantom"],
   "Bentley": ["Bentley Flying Spur"],
   "Mercedes-Benz": ["Mercedes-Benz S-Class Maybach"],
@@ -164,7 +171,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const priceInfo = document.getElementById("price-info");
   const form = document.getElementById("booking-form");
 
-  // 1) Brand logos -> show cars
+  // 1) Brand logos
   document.querySelectorAll("#brand-list img").forEach(logo => {
     const brand = logo.dataset.brand || logo.alt;
     logo.style.cursor = "pointer";

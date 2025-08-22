@@ -17,12 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// This handles the back/forward cache issue
-window.addEventListener("pageshow", function (event) {
-    if (event.persisted) { // bfcache restore
-        const overlay = document.getElementById('transition-overlay');
-        if (overlay) {
-            overlay.style.display = 'none';
-        }
-    }
+document.addEventListener('DOMContentLoaded', function() {
+  const overlay = document.getElementById('transition-overlay');
+  if (overlay) overlay.style.display = 'none';
 });

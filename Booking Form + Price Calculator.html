@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="Theme + Simple Design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
+    <script src="Page Transition.js"></script>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <script src="car-display.js"></script>
 </head>
@@ -14,6 +15,15 @@
 <header>
        <h1 class="animated-title">Welcome to Booking Station</h1>
         <p class="subtitle">It's waiting for you</p>
+        <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Booking Form + Price Calculator.html">Book</a></li>
+        <li><a href="About Us.html">About</a></li>
+        <li><a href="Contact Us.html">Contact</a></li>
+        <li><a href="Location.html">Location</a></li>
+      </ul>
+    </nav>
 </header>
 <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
@@ -50,6 +60,7 @@
         <img src="Brands Logo/Porche.png" alt="Porsche" class="brand-logo" data-brand="Porsche">
         <img src="Brands Logo/Hyundai.png" alt="Hyundai" class="brand-logo" data-brand="Hyundai">
         <img src="Brands Logo/Honda.png" alt="Honda" class="brand-logo" data-brand="Honda">
+        <img src="Brands Logo/BMW Logo.png" alt="BMW" class="brand-logo" data-brand="BMW 4">
         <img src="Brands Logo/Rolls Royce.png" alt="Rolls-Royce" class="brand-logo" data-brand="Rolls-Royce">
         <img src="Brands Logo/Bentley.png" alt="Bentley" class="brand-logo" data-brand="Bentley">
         <img src="Brands Logo/Mercedes.png" alt="Mercedes-Benz" class="brand-logo" data-brand="Mercedes-Benz">
@@ -63,18 +74,18 @@
 
     <!-- Car List -->
     <div class="car-gallery" id="car-gallery">
-        <!--  car cards here -->
+        <!--  car cards -->
     </div>
 
     <!-- Car Info Section -->
     <div class="car-info" id="car-info" style="display: none;">
 </div>
 
-<!-- Image is here -->
+<!-- Image -->
         <div class="car-select" id="car-select">   
         </div>
 
-            <!-- Car specs & description will appear here -->
+            <!-- Car specs & description -->
         <div class="car-details" id="car-details">
       </div>
     </div>
@@ -91,4 +102,7 @@
 
 <!-- Page Transition Script -->
 <script src="Page Transition.js"></script>
+</script>
 
+</body>
+</html>

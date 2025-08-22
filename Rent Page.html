@@ -6,6 +6,7 @@
   <title>Rent Page</title>
   <link rel="stylesheet" href="Theme + Simple Design.css" />
    <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
+   <script src="Page Transition.js"></script>
      <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="car-display.js"></script>
@@ -13,6 +14,15 @@
 <body>
   <header class="main-header">
     <h1 class="animated-title">Rent Your Car</h1>
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Booking Form + Price Calculator.html">Book</a></li>
+        <li><a href="About Us.html">About</a></li>
+        <li><a href="Contact Us.html">Contact</a></li>
+        <li><a href="Location.html">Location</a></li>
+      </ul>
+    </nav>
     <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
   </header>
@@ -22,7 +32,7 @@
   <img id="car-select-img" src="" alt="Selected Car" />
 </div>
 
-<!-- Car specs & description will appear here -->
+<!-- Car specs & description -->
 <div class="car-details" id="car-details">
 </div>
 
@@ -79,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     );
   });
 
-   // --- Car Description (specs) ---
+   // --- Car Description ---
   const carData = {
   "Audi A8": { brand: "Audi", seats: 5, fuel: "Petrol", transmission: "Automatic", image: "Latest car/Audi A8.png", description: "Luxury sedan with cutting-edge tech and comfort.", pricePerDay: 3500 },
   "Lexus LS": { brand: "Lexus", seats: 5, fuel: "Petrol", transmission: "Automatic", image: "Latest car/Lexus LS.png", description: "Premium design and refined performance.", pricePerDay: 3200 },

@@ -214,18 +214,18 @@ input {
   overflow: visible;
 }
 
-/* Promo image in corner, slightly tilted */
+/* Promo image */
 .promo-badge {
   position: absolute;
-  top: -30px;      /* moves it above the card */
-  left: -100px;     /* moves it to the left of the card */
-  width: 80px;     /* resize the badge */
+  top: -30px;      
+  left: -100px;     
+  width: 80px;    
   height: auto;
-  z-index: 10;     /* make sure it's on top */
-  transform: rotate(-20deg); /* optional: slight lean */
+  z-index: 10;     
+  transform: rotate(-20deg);
 }
 
-/* Old price (crossed out) */
+/* Old price */
 .old-price {
   text-decoration: line-through;
   color: #888;
@@ -244,14 +244,14 @@ input {
 /* Car Image */
 .car-img-wrapper {
   width: 100%;
-  max-width: 400px;  /* fixed box width */
-  height: 250px;     /* fixed box height */
+  max-width: 400px; 
+  height: 250px;    
   margin: 0 auto;
-  overflow: hidden;  /* prevents image overflow */
+  overflow: hidden;  
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #ccc; /* just to see the box size */
+  border: 1px solid #ccc; 
 }
 
 #selected-car-img {
@@ -425,9 +425,9 @@ html {
   radial-gradient(circle at 620px 800px, rgb(101, 173, 255), #1e2e53, #000000);
 
  background-position: 
-    center  250px, /* moves Earth 150px down */
-    center,        /* keeps stardust centered */
-    bottom;        /* gradient stays at bottom */
+    center  250px, /* moves down */
+    center,        /* keeps centered */
+    bottom;        /* bottom */
 
     background-size: cover;
     background-repeat: no-repeat;
@@ -515,6 +515,114 @@ html {
   background: rgba(171, 43, 53);
   color: #000;
 }
+
+/* Subscribe Button */
+.subscribe-btn {
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #6a0dad, #8a2be2);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subscribe-btn:hover {
+  background: linear-gradient(90deg, #8a2be2, #6a0dad);
+  transform: scale(1.05);
+}
+
+/* Popup Background */
+#membership-popup {
+  display: none; 
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* Popup Box */
+.popup-content {
+  background: #1a1a1a;
+  padding: 30px 40px;
+  border-radius: 12px;
+  text-align: center;
+  color: #fff;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Close Button */
+.close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.close-btn:hover {
+  color: #ff4081;
+}
+
+/* Membership Options */
+.membership-options {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.membership-card {
+  background: #2a2a2a;
+  padding: 20px;
+  border-radius: 10px;
+  width: 45%;
+  min-width: 150px;
+  transition: 0.3s;
+}
+
+.membership-card:hover {
+  background: linear-gradient(90deg, #6a0dad, #8a2be2);
+  transform: translateY(-5px);
+}
+
+.membership-card h3 {
+  margin-bottom: 10px;
+}
+
+.membership-card p {
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* Select Button */
+.select-btn {
+  padding: 8px 20px;
+  background: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.select-btn:hover {
+  background: #e73370;
+}
+
 
 /* Embedded Map */
 .footer-map {
@@ -615,18 +723,18 @@ html {
   position: relative;
   color: white;
   border-radius: 15px;
-  width: 520px;        /* keep your fixed box size */
+  width: 520px;        /* keep fixed box size */
   padding: 15px;
   margin: 0 auto;      /* center the whole box itself */
-  text-align: center;  /* will center inline content */
+  text-align: center;  /* center inline content */
 }
 
 .car-select img {
-  max-width: 80%;      /* shrink so it doesn’t stretch full box */
+  max-width: 80%;      /* shrink full box */
   height: auto;
   border-radius: 10px;
   display: block;      /* block element */
-  margin: 0 auto;      /* THIS is the key for centering */
+  margin: 0 auto;      /* centering */
 }
 .car-gallery {
   display: flex;
@@ -638,7 +746,7 @@ html {
 /* Description */
 .car-specs {
   display: flex;
-  flex-wrap: wrap;         /* makes them wrap if too many */
+  flex-wrap: wrap;
   gap: 10px;               /* spacing between boxes */
   margin-top: 15px;
   margin-bottom: 15px;
@@ -648,7 +756,7 @@ html {
   background: #e0e0e079;     /* light grey */
   padding: 12px 18px;
   border-radius: 12px;
-  flex: 1 1 170px;         /* min width 180px */
+  flex: 1 1 170px;         /*  width  */
   text-align: center;
   font-size: 14px;
   color: #ffffff;
