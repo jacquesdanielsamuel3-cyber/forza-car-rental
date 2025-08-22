@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () { 
     const links = document.querySelectorAll('a');
 
     links.forEach(link => {
@@ -11,16 +11,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setTimeout(() => {
                     window.location.href = url;
-                }, 1200); // Match the car animation speed
-
-                window.addEventListener("pageshow", function (event) {
-  if (event.persisted) {
-    // Page was restored from back/forward cache
-    document.querySelector(".transition").style.display = "none";
-  }
-});
-
+                }, 1200);
             });
         }
     });
+});
+
+// This handles the back/forward cache issue
+window.addEventListener("pageshow", function (event) {
+    if (event.persisted) { // bfcache restore
+        const overlay = document.getElementById('transition-overlay');
+        if (overlay) {
+            overlay.style.display = 'none';
+        }
+    }
 });
