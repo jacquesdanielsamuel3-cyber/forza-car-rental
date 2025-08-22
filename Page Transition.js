@@ -12,6 +12,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     window.location.href = url;
                 }, 1200); // Match the car animation speed
+
+                window.addEventListener("pageshow", function (event) {
+  if (event.persisted) {
+    // Page was restored from back/forward cache
+    document.querySelector(".transition").style.display = "none";
+  }
+});
+
             });
         }
     });
