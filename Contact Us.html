@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="Theme + Simple Design.css" />
+  <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
+</head>
+<body>
+  <header>
+    <h1 class="animated-title">Contact <span>Us</span></h1>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
+  </header>
+
+  <main class="contact-container">
+    <section class="contact-form">
+      <h2>Get in Touch</h2>
+      <form id="contactForm">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Speed Rental Inc. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      alert("Message sent successfully!");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to Booking Station - Forza</title>
+    <link rel="stylesheet" href="Theme + Simple Design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
+<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+<script src="car-display.js"></script>
+</head>
+<body>
+
+<header>
+       <h1 class="animated-title">Welcome to Booking Station</h1>
+        <p class="subtitle">It's waiting for you</p>
+</header>
+<link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
+    
+<!-- User Details -->
+<div class="user-details">
+  <h2>Booking Information</h2>
+  <form id="booking-form">
+    <input type="text" id="fullName" placeholder="Full Name" required />
+    <input type="number" id="age" placeholder="Age" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="tel" id="mobile" placeholder="Mobile Number" required />
+    <input type="text" id="card" placeholder="Card Number" required />
+    
+    <label for="days">Number of Days:</label>
+   <input type="number" id="days" min="1" max="5" value="1" required />
+
+    <div id="price-info">Total Price: Rs 0</div>
+
+    <button type="submit">Confirm Purchase</button>
+  </form>
+</div>
+
+<!-- Car Selection Section -->
+<section class="car-selection">
+    <h2>Choose Your Car</h2>
+
+
+    <!-- Brand Filter -->
+    <div id="brand-list">
+        <img src="Brands Logo/Audi.png" alt="Audi" class="brand-logo" data-brand="Audi">
+        <img src="Brands Logo/Toyota.png" alt="Toyota" class="brand-logo" data-brand="Toyota">
+        <img src="Brands Logo/Lexus.png" alt="Lexus" class="brand-logo" data-brand="Lexus">
+        <img src="Brands Logo/Porche.png" alt="Porsche" class="brand-logo" data-brand="Porsche">
+        <img src="Brands Logo/Hyundai.png" alt="Hyundai" class="brand-logo" data-brand="Hyundai">
+        <img src="Brands Logo/Honda.png" alt="Honda" class="brand-logo" data-brand="Honda">
+        <img src="Brands Logo/Rolls Royce.png" alt="Rolls-Royce" class="brand-logo" data-brand="Rolls-Royce">
+        <img src="Brands Logo/Bentley.png" alt="Bentley" class="brand-logo" data-brand="Bentley">
+        <img src="Brands Logo/Mercedes.png" alt="Mercedes-Benz" class="brand-logo" data-brand="Mercedes-Benz">
+        <img src="Brands Logo/Rover.png" alt="Range Rover" class="brand-logo" data-brand="Range Rover">
+        <img src="Brands Logo/Aston Martin.png" alt="Aston Martin" class="brand-logo" data-brand="Aston Martin">
+        <img src="Brands Logo/Maserati.png" alt="Maserati" class="brand-logo" data-brand="Maserati">
+        <img src="Brands Logo/Suzuki.png" alt="Suzuki" class="brand-logo" data-brand="Suzuki">
+        <img src="Brands Logo/Nissan.png" alt="Nissan" class="brand-logo" data-brand="Nissan">
+        <img src="Brands Logo/Renault.png" alt="Renault" class="brand-logo" data-brand="Renault">
+    </div>
+
+    <!-- Car List -->
+    <div class="car-gallery" id="car-gallery">
+        <!--  car cards here -->
+    </div>
+
+    <!-- Car Info Section -->
+    <div class="car-info" id="car-info" style="display: none;">
+</div>
+
+<!-- Image is here -->
+        <div class="car-select" id="car-select">   
+        </div>
+
+            <!-- Car specs & description will appear here -->
+        <div class="car-details" id="car-details">
+      </div>
+    </div>
+</section>
+
+
+<!-- Page Transition Overlay -->
+<div id="transition-overlay" style="display: none;">
+  <div class="car-loader">
+    <div class="car"></div>
+    <div class="wheels"></div>
+  </div>
+</div>
+
+<!-- Page Transition Script -->
+<script src="Page Transition.js"></script>
+
