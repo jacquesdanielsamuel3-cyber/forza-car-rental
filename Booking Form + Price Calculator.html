@@ -6,9 +6,15 @@
     <link rel="stylesheet" href="Theme + Simple Design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
-    <script src="Page Transition.js"></script>
 <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 <script src="car-display.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script>
+  (function(){
+    emailjs.init("yfonXBK6R72NxeF6m"); 
+  })();
+</script>
+
 </head>
 <body>
 
@@ -102,7 +108,62 @@
 
 <!-- Page Transition Script -->
 <script src="Page Transition.js"></script>
+
+<script>
+function showConfirmation(message) {
+  const overlay = document.getElementById("confirmation-overlay");
+  const msg = document.getElementById("confirmation-message");
+  msg.innerHTML = message;
+  overlay.style.display = "flex";
+  startConfetti();
+}
+
+// Confetti Effect
+function startConfetti() {
+  const canvas = document.getElementById("confetti-canvas");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const confetti = Array.from({length:150}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height - canvas.height,
+    r: Math.random() * 6 + 4,
+    d: Math.random() * 0.5 + 0.5,
+    color: `hsl(${Math.random()*360},100%,50%)`
+  }));
+
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    confetti.forEach(c => {
+      ctx.beginPath();
+      ctx.arc(c.x,c.y,c.r,0,Math.PI*2,true);
+      ctx.fillStyle=c.color;
+      ctx.fill();
+    });
+    update();
+    requestAnimationFrame(draw);
+  }
+  function update() {
+    confetti.forEach(c => {
+      c.y+=c.d*4;
+      if(c.y>canvas.height){
+        c.y= -10;
+        c.x=Math.random()*canvas.width;
+      }
+    });
+  }
+  draw();
+}
+
 </script>
+
+<!-- Confirmation Overlay -->
+<div id="confirmation-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; justify-content:center; align-items:center; flex-direction:column; color:white; font-family:sans-serif; text-align:center;">
+  <h1>🎉 Congratulations!</h1>
+  <p id="confirmation-message">Your booking is confirmed.</p>
+  <button onclick="document.getElementById('confirmation-overlay').style.display='none'" style="margin-top:20px; padding:10px 20px; border:none; background:#ff6600; color:white; border-radius:8px; cursor:pointer;">Close</button>
+  <canvas id="confetti-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></canvas>
+</div>
 
 </body>
 </html>

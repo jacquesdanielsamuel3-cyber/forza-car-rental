@@ -146,7 +146,7 @@ const brands = {
   "Toyota": ["Toyota GR Supra", "Toyota Vitz", "Toyota Corolla", "Toyota Sienta", "Toyota Probox"],
   "Hyundai": ["Hyundai Palisade", "Hyunda i10"],
   "Honda": ["Honda Accord"],
-  "BMW 4": [],
+  "BMW 4": ["BMW 4 Series Convertible"],
   "Rolls-Royce": ["Rolls-Royce Phantom"],
   "Bentley": ["Bentley Flying Spur"],
   "Mercedes-Benz": ["Mercedes-Benz S-Class Maybach"],
@@ -243,8 +243,13 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("submit", (e) => {
       e.preventDefault();
       if (!selectedCarKey) {
-        alert("Please select a car first!");
-        return;
+showConfirmation(
+  `Your booking is confirmed!<br>
+   Car: ${name}<br>
+   Days: ${daysInput.value}<br>
+   Total: Rs ${pricePerDay * daysInput.value}`
+);
+
       }
       const days = parseInt(daysInput.value, 10) || 0;
       const total = carData[selectedCarKey].pricePerDay * Math.min(days, 5);
@@ -255,3 +260,16 @@ Total: Rs ${total}`);
     });
   }
 });
+
+emailjs.send("service_2x0mdrf","template_iaiw9pq",{
+  name: document.querySelector("#fullName, #rentForm input[type=text]").value,
+  car: name,
+  days: daysInput.value,
+  total: pricePerDay * daysInput.value,
+  email: document.querySelector("#email").value,
+  phone: document.querySelector("#mobile").value
+})
+.then(() => {
+  console.log("✅ Email sent to customer");
+})
+.catch(err => console.error("❌ Email failed", err));
