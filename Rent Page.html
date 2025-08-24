@@ -9,12 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <script src="car-display.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
-<script>
-  (function(){
-    emailjs.init("yfonXBK6R72NxeF6m"); 
-  })();
-</script>
+
 </head>
 <body>
   <header class="main-header">
@@ -43,18 +40,15 @@
 
 <section class="user-details"> 
   <h3>Enter Your Details</h3>
-  <form id="rentForm">
-    <input type="text" placeholder="Full Name" required />
-    <input type="number" placeholder="Age" required />
-    <input type="email" placeholder="Email" required />
-    <input type="tel" placeholder="Mobile Number" required />
-    <input type="text" placeholder="Card Number" required />
-    <label for="days">Number of Days:</label>
-    <input type="number" id="days" min="1" max="5" value="1" required />
-    <div id="price-info">Total Price: Rs 0</div>
-    <button type="submit">Confirm Rent</button>
-  </form>
-</section>
+<form id="rentForm">
+  <input type="text" id="fullName" placeholder="Full Name" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="tel" id="mobile" placeholder="Mobile Number" required />
+  <label for="days">Number of Days:</label>
+  <input type="number" id="days" min="1" max="5" value="1" required />
+  <div id="price-info">Total Price: Rs 0</div>
+  <button type="submit">Confirm Rent</button>
+</form>
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
@@ -82,34 +76,60 @@ document.addEventListener("DOMContentLoaded", function() {
     totalEl.textContent = "Total Price: Rs " + (pricePerDay * days);
   }
 
-  updateTotal(); // initial calculation
+   updateTotal(); // initial calculation
 
   daysInput.addEventListener("input", updateTotal);
 
-  form.addEventListener("submit", function(e) {
-    e.preventDefault();
-    updateTotal();
-showConfirmation(
-  `Your rent is confirmed!<br>
-   Car: ${name}<br>
-   Days: ${daysInput.value}<br>
-   Total: Rs ${pricePerDay * daysInput.value}`
-);
+  // --- EmailJS Setup ---
+form.addEventListener("submit", function(e) {
+  e.preventDefault(); // prevent page reload
 
-emailjs.send("service_2x0mdrf","template_iaiw9pq",{
-  name: document.querySelector("#fullName, #rentForm input[type=text]").value,
-  car: name,
-  days: daysInput.value,
-  total: pricePerDay * daysInput.value,
-  email: document.querySelector("#email").value,
-  phone: document.querySelector("#mobile").value
-})
-.then(() => {
-  console.log("✅ Email sent to customer");
-})
-.catch(err => console.error("❌ Email failed", err));
+  updateTotal(); // recalc price
 
+  // --- Calculate days and total ---
+  const days = parseInt(daysInput.value, 10);
+  const total = pricePerDay * days;
+
+  // --- Confetti logic (optional) ---
+  confetti({
+    particleCount: 100,
+    spread: 70,
+    origin: { y: 0.6 }
   });
+
+  // Optional alert for user confirmation
+  alert("Rent confirmed! Check your email for details.");
+
+  // --- EmailJS logic ---
+  const formData = {
+    car_name: name, // EmailJS template variable names
+    total_price: total,
+    full_name: document.getElementById("fullName").value,
+    email: document.getElementById("email").value,
+    mobile: document.getElementById("mobile").value,
+    days: days
+  };
+
+  emailjs.send("service_2x0mdrf","template_iaiw9pq", formData, "yfonXBK6R72NxeF6m")
+    .then(function(response) {
+      console.log("Email sent successfully!", response.status, response.text);
+      // Show confirmation overlay after email sent
+      showConfirmation(`
+        🎉 Rent Confirmed! <br>
+        <strong>Car:</strong> ${name}<br>
+        <strong>Days:</strong> ${days}<br>
+        <strong>Total:</strong> Rs ${total}
+      `);
+    }, function(error) {
+      console.error("Email failed:", error);
+      alert("Failed to send email. Please try again.");
+    });
+
+  // Reset form fields if needed
+  form.reset();
+  updateTotal(); // reset total price display
+});
+
 
    // --- Car Description ---
   const carData = {
@@ -153,62 +173,7 @@ emailjs.send("service_2x0mdrf","template_iaiw9pq",{
     `;
   }
 });
-
-function showConfirmation(message) {
-  const overlay = document.getElementById("confirmation-overlay");
-  const msg = document.getElementById("confirmation-message");
-  msg.innerHTML = message;
-  overlay.style.display = "flex";
-  startConfetti();
-}
-
-// Confetti Effect
-function startConfetti() {
-  const canvas = document.getElementById("confetti-canvas");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  const confetti = Array.from({length:150}, () => ({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height - canvas.height,
-    r: Math.random() * 6 + 4,
-    d: Math.random() * 0.5 + 0.5,
-    color: `hsl(${Math.random()*360},100%,50%)`
-  }));
-
-  function draw() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    confetti.forEach(c => {
-      ctx.beginPath();
-      ctx.arc(c.x,c.y,c.r,0,Math.PI*2,true);
-      ctx.fillStyle=c.color;
-      ctx.fill();
-    });
-    update();
-    requestAnimationFrame(draw);
-  }
-  function update() {
-    confetti.forEach(c => {
-      c.y+=c.d*4;
-      if(c.y>canvas.height){
-        c.y= -10;
-        c.x=Math.random()*canvas.width;
-      }
-    });
-  }
-  draw();
-}
-
 </script>
-
-<!-- Confirmation Overlay -->
-<div id="confirmation-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:flex; justify-content:center; align-items:center; flex-direction:column; color:white; font-family:sans-serif; text-align:center;">
-  <h1>🎉 Congratulations!</h1>
-  <p id="confirmation-message">Your rent is confirmed.</p>
-  <button onclick="document.getElementById('confirmation-overlay').style.display='none'" style="margin-top:20px; padding:10px 20px; border:none; background:#ff6600; color:white; border-radius:8px; cursor:pointer;">Close</button>
-  <canvas id="confetti-canvas" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></canvas>
-</div>
-
 
 </body>
 </html>

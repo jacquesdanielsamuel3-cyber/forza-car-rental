@@ -239,37 +239,93 @@ document.addEventListener("DOMContentLoaded", () => {
   // 5) Events
   if (daysInput) daysInput.addEventListener("input", updatePrice);
 
-  if (form) {
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!selectedCarKey) {
-showConfirmation(
-  `Your booking is confirmed!<br>
-   Car: ${name}<br>
-   Days: ${daysInput.value}<br>
-   Total: Rs ${pricePerDay * daysInput.value}`
-);
 
-      }
-      const days = parseInt(daysInput.value, 10) || 0;
-      const total = carData[selectedCarKey].pricePerDay * Math.min(days, 5);
-      alert(`Booking Confirmed!
-Car: ${selectedCarKey}
-Duration: ${days} day(s)
-Total: Rs ${total}`);
-    });
+// --- Show Confirmation Overlay ---
+  function showBookingConfirmation(message) {
+    let overlay = document.getElementById("confirmationOverlay");
+    if (!overlay) {
+      overlay = document.createElement("div");
+      overlay.id = "confirmationOverlay";
+      overlay.style.position = "fixed";
+      overlay.style.top = "0";
+      overlay.style.left = "0";
+      overlay.style.width = "100%";
+      overlay.style.height = "100%";
+      overlay.style.background = "rgba(0,0,0,0.8)";
+      overlay.style.display = "flex";
+      overlay.style.alignItems = "center";
+      overlay.style.justifyContent = "center";
+      overlay.style.color = "white";
+      overlay.style.fontSize = "18px";
+      overlay.style.zIndex = "9999";
+      document.body.appendChild(overlay);
+    }
+    overlay.innerHTML = `
+      <div style="background:#222; padding:20px; border-radius:10px; text-align:center;">
+        ${message}<br><br>
+        <button onclick="document.getElementById('confirmationOverlay').style.display='none'">Close</button>
+      </div>
+    `;
+    overlay.style.display = "flex";
+
+    // Auto-hide after 5s
+    setTimeout(() => {
+      overlay.style.display = "none";
+    }, 5000);
   }
-});
 
-emailjs.send("service_2x0mdrf","template_iaiw9pq",{
-  name: document.querySelector("#fullName, #rentForm input[type=text]").value,
-  car: name,
-  days: daysInput.value,
-  total: pricePerDay * daysInput.value,
-  email: document.querySelector("#email").value,
-  phone: document.querySelector("#mobile").value
-})
-.then(() => {
-  console.log("✅ Email sent to customer");
-})
-.catch(err => console.error("❌ Email failed", err));
+  // --- EmailJS Init ---
+  emailjs.init("yfonXBK6R72NxeF6m");
+
+  // --- Booking Form Submit ---
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    if (!selectedCarKey) {
+      alert("⚠️ Please select a car first.");
+      return;
+    }
+
+    const car = carData[selectedCarKey];
+    const days = parseInt(daysInput.value, 10) || 0;
+    const total = car.pricePerDay * Math.min(days, 5);
+
+    // 🎉 Confetti
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    // --- EmailJS Data ---
+    const bookingData = {
+      car_name: selectedCarKey,
+      total_price: total,
+      full_name: document.getElementById("fullName").value,
+      age: document.getElementById("age").value,
+      email: document.getElementById("email").value,
+      mobile: document.getElementById("mobile").value,
+      card_number: document.getElementById("card").value,
+      days: days
+    };
+
+    emailjs.send("service_2x0mdrf", "template_yzf97yo", bookingData)
+      .then(function(response) {
+        console.log("✅ Email sent!", response.status, response.text);
+        showBookingConfirmation(`
+          🎉 Booking Confirmed! <br><br>
+          <strong>Car:</strong> ${selectedCarKey}<br>
+          <strong>Name:</strong> ${bookingData.full_name}<br>
+          <strong>Days:</strong> ${days}<br>
+          <strong>Total:</strong> Rs ${total}<br>
+          ✅ We will contact you shortly.
+        `);
+      }, function(error) {
+        console.error("❌ Email failed:", error);
+        alert("Failed to send email. Please try again.");
+      });
+
+    form.reset();
+    priceInfo.textContent = "Total Price: Rs 0";
+  });
+  });
