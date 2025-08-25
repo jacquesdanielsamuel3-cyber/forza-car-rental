@@ -80,6 +80,41 @@ document.addEventListener("DOMContentLoaded", function() {
 
   daysInput.addEventListener("input", updateTotal);
 
+// --- Rent Confirmation Popup ---
+function showRentConfirmation(message) {
+  let overlay = document.getElementById("rentConfirmationOverlay");
+  if (!overlay) {
+    overlay = document.createElement("div");
+    overlay.id = "rentConfirmationOverlay";
+    overlay.style.position = "fixed";
+    overlay.style.top = "0";
+    overlay.style.left = "0";
+    overlay.style.width = "100%";
+    overlay.style.height = "100%";
+    overlay.style.background = "rgba(0,0,0,0.8)";
+    overlay.style.display = "flex";
+    overlay.style.alignItems = "center";
+    overlay.style.justifyContent = "center";
+    overlay.style.color = "white";
+    overlay.style.fontSize = "18px";
+    overlay.style.zIndex = "9999";
+    document.body.appendChild(overlay);
+  }
+
+  overlay.innerHTML = `
+    <div style="background:#222; padding:20px; border-radius:10px; text-align:center;">
+      ${message}<br><br>
+      <button onclick="document.getElementById('rentConfirmationOverlay').style.display='none'">Close</button>
+    </div>
+  `;
+  overlay.style.display = "flex";
+
+  // Auto-hide after 5 seconds
+  setTimeout(() => {
+    overlay.style.display = "none";
+  }, 5000);
+}
+
   // --- EmailJS Setup ---
 form.addEventListener("submit", function(e) {
   e.preventDefault(); // prevent page reload
@@ -110,11 +145,11 @@ form.addEventListener("submit", function(e) {
     days: days
   };
 
-  emailjs.send("service_2x0mdrf","template_iaiw9pq", formData, "yfonXBK6R72NxeF6m")
+  emailjs.send("service_2x0mdrf", "template_yzf97yo", formData, "yfonXBK6R72NxeF6m")
     .then(function(response) {
       console.log("Email sent successfully!", response.status, response.text);
       // Show confirmation overlay after email sent
-      showConfirmation(`
+      showRentConfirmation(`
         🎉 Rent Confirmed! <br>
         <strong>Car:</strong> ${name}<br>
         <strong>Days:</strong> ${days}<br>

@@ -6,6 +6,8 @@
   <title>Contact Us</title>
   <link rel="stylesheet" href="Theme + Simple Design.css" />
   <a href="javascript:history.back()" class="back-button">⤺ Return Back</a>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
@@ -19,8 +21,6 @@
         <li><a href="Location.html">Location</a></li>
       </ul>
     </nav>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;600&display=swap" rel="stylesheet">
   </header>
 
   <main class="contact-container">
@@ -28,58 +28,81 @@
       <h2>Get in Touch</h2>
       <form id="contactForm">
         <label for="name">Full Name:</label>
-        <input type="text" id="name" required />
+        <input type="text" id="name" name="full_name" required />
 
         <label for="email">Email:</label>
-        <input type="email" id="email" required />
+        <input type="email" id="email" name="email" required />
 
         <label for="subject">Subject:</label>
-        <input type="text" id="subject" required />
+        <input type="text" id="subject" name="subject" required />
 
         <label for="message">Message:</label>
-        <textarea id="message" rows="5" required></textarea>
+        <textarea id="message" name="message" rows="5" required></textarea>
 
         <button type="submit">Send Message</button>
       </form>
     </section>
   </main>
 
-<!-- EmailJS SDK -->
-<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
-<script>
-  (function() {
-    emailjs.init("yfonXBK6R72NxeF6m"); // Public Key
-  })();
-</script>
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+  <script>
+    (function() {
+      emailjs.init("yfonXBK6R72NxeF6m"); // Public Key
+    })();
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", function(e) {
-  e.preventDefault();
+    // --- Contact Confirmation Popup ---
+    function showContactPopup(message) {
+      let overlay = document.getElementById("contactOverlay");
+      if (!overlay) {
+        overlay = document.createElement("div");
+        overlay.id = "contactOverlay";
+        overlay.style.position = "fixed";
+        overlay.style.top = "0";
+        overlay.style.left = "0";
+        overlay.style.width = "100%";
+        overlay.style.height = "100%";
+        overlay.style.background = "rgba(0,0,0,0.8)";
+        overlay.style.display = "flex";
+        overlay.style.alignItems = "center";
+        overlay.style.justifyContent = "center";
+        overlay.style.color = "white";
+        overlay.style.fontSize = "18px";
+        overlay.style.zIndex = "9999";
+        document.body.appendChild(overlay);
+      }
 
-  emailjs.sendForm("service_99tsgqp", "template_gdb6mgp", this)
-  .then(function(response) {
-      console.log("SUCCESS!", response.status, response.text);
-      alert("✅ Your message has been sent successfully!");
-      document.getElementById("contactForm").reset();
-  }, function(error) {
-      console.log("FAILED...", error);
-      alert("❌ Failed to send message. Please try again.");
-  });
-});
-</script>
+      overlay.innerHTML = `
+        <div style="background:#222; padding:20px; border-radius:10px; text-align:center; max-width:400px;">
+          ${message}<br><br>
+          <button onclick="document.getElementById('contactOverlay').style.display='none'">Close</button>
+        </div>
+      `;
+      overlay.style.display = "flex";
 
+      setTimeout(() => {
+        overlay.style.display = "none";
+      }, 5000);
+    }
+
+    // --- Contact Form Submit ---
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      emailjs.sendForm("service_2x0mdrf", "template_iaiw9pq", this)
+      .then(function(response) {
+          console.log("SUCCESS!", response.status, response.text);
+          showContactPopup("✅ Thank you! Your message has been sent successfully. We’ll get back to you soon.");
+          document.getElementById("contactForm").reset();
+      }, function(error) {
+          console.log("FAILED...", error);
+          showContactPopup("❌ Failed to send message. Please try again.");
+      });
+    });
+  </script>
 
   <footer>
     <p>&copy; 2025 Speed Rental Inc. All rights reserved.</p>
   </footer>
-
-  <script>
-    document.getElementById("contactForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      alert("Message sent successfully!");
-      this.reset();
-    });
-  </script>
-
 </body>
 </html>

@@ -857,7 +857,7 @@ header {
 
 .page-title {
   font-size: 3rem;
-  color: #f5f5f5;
+  color: #000000;
   transition: color 0.3s;
 }
 
@@ -889,7 +889,7 @@ main.contact-container {
 .contact-form h2 {
   text-align: center;
   margin-bottom: 25px;
-  color: rgba(171, 43, 53);
+  color: rgb(163, 163, 163);
 }
 
 form label {
