@@ -37,7 +37,7 @@ const carData = {
   },
     "BMW 4 Series Convertible": {
     brand: "BMW 4", seats: 4, fuel: "Petrol", transmission: "Automatic",
-    image: "Latest car/bmw 4-series-convertible.png",
+    image: "Latest car/bmw 4 series convertible.png",
     description: "Stylish convertible designed for luxury and sporty drives..",
     pricePerDay: 4500
   },
@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "car-card";
 
       const safeImage = encodeURI(c.image);
-
+      
       card.innerHTML = `
-        <img src="${c.image}" alt="${model}">
+        <img src="${encodeURI('/' + c.image)}" alt="${model}">
         <h3>${model}</h3>
         <p>Rs ${c.pricePerDay} / day</p>
       `;
