@@ -187,6 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const card = document.createElement("div");
       card.className = "car-card";
+
+      const safeImage = encodeURI(c.image);
+      
       card.innerHTML = `
         <img src="${c.image}" alt="${model}">
         <h3>${model}</h3>
